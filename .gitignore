@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 /data
+=======
+node_modules/
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+dist/
+build/
+>>>>>>> 3cbe16e (Initial commit)
