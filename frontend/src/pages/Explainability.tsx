@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import {
   Microscope,
   AlertCircle,
@@ -11,6 +11,9 @@ import {
   Search
 } from 'lucide-react';
 import { apiService } from '../services/api';
+
+const ThreatPedestal3DLazy = lazy(() => import('../components/3d/ThreatPedestal3D').then(m => ({ default: m.ThreatPedestal3D })));
+
 
 interface ExplainabilityProps {
   threatId: number | null;
@@ -332,8 +335,28 @@ export const Explainability: React.FC<ExplainabilityProps> = ({ threatId, onSele
               </table>
             </div>
           </div>
+          {/* 3D Threat Telemetry Pedestal Visual */}
+          <div className="dark-panel p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Shield size={14} className="text-cyan-400" />
+                <h3 className="text-xs font-semibold text-slate-300 font-mono uppercase tracking-wider">
+                  Spatial Incident Telemetry & Node Pedestal
+                </h3>
+              </div>
+              <span className="text-[10px] font-mono text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/30">
+                ACTIVE 3D ISOLATION
+              </span>
+            </div>
+            <div className="h-56 w-full rounded-lg overflow-hidden bg-slate-950/40 border border-cyan-900/20 relative">
+              <Suspense fallback={<div className="h-full flex items-center justify-center text-xs text-slate-600 font-mono">Initializing 3D Telemetry...</div>}>
+                <ThreatPedestal3DLazy threatActive={data.severity === 'Critical' || data.severity === 'High'} />
+              </Suspense>
+            </div>
+          </div>
         </>
       )}
     </div>
   );
 };
+

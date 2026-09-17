@@ -144,6 +144,15 @@ function App() {
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('iotshield_auth');
+    setIsAuthenticated(false);
+    setSelectedDataset(null);
+    setSelectedModel(null);
+    setSelectedThreatId(null);
+    setActivePage('dashboard');
+  };
+
   if (!isAuthenticated) {
     return <Login onLogin={() => {
       setIsAuthenticated(true);
@@ -172,6 +181,7 @@ function App() {
           selectedDataset={selectedDataset}
           setSelectedDataset={setSelectedDataset}
           onPreprocessSuccess={handlePreprocessSuccess}
+          onNavigateToTrain={() => setActivePage('performance')}
         />
       )}
 
@@ -191,10 +201,6 @@ function App() {
           datasets={datasets}
           models={models}
           onDetectionSuccess={handleDetectionSuccess}
-          onExplainThreat={(id: number) => {
-            setSelectedThreatId(id);
-            setActivePage('explain');
-          }}
         />
       )}
 
@@ -217,6 +223,7 @@ function App() {
       {activePage === 'settings' && (
         <Settings
           systemStatus={systemStatus}
+          onLogout={handleLogout}
         />
       )}
     </Layout>

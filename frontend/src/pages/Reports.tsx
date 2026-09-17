@@ -60,7 +60,7 @@ export const Reports: React.FC<ReportsProps> = ({
   // Handle report generation
   const handleGenerateReport = async () => {
     if (selectedJobId === 0) {
-      setErrorMsg("Please select a valid detection job to document.");
+      setErrorMsg("Please select a valid detection audit run to document.");
       return;
     }
 
@@ -89,7 +89,6 @@ export const Reports: React.FC<ReportsProps> = ({
   };
 
   const handleDownloadPdf = (report: SecurityReport) => {
-    // Open the download link in a new window or trigger download
     const url = apiService.getReportDownloadUrl(report.id);
     window.open(url, '_blank');
   };
@@ -112,7 +111,9 @@ export const Reports: React.FC<ReportsProps> = ({
 
       {/* CREATE REPORT OVERLAY */}
       <div className="dark-panel p-6 space-y-4">
-        <h3 className="text-xs font-semibold text-slate-300 font-mono uppercase tracking-wider">Generate Security Assessment Report</h3>
+        <h3 className="text-xs font-semibold text-slate-300 font-mono uppercase tracking-wider">
+          Generate Security Assessment Report
+        </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-end">
           {/* Select detection run */}
@@ -157,7 +158,9 @@ export const Reports: React.FC<ReportsProps> = ({
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
         {/* Reports Archive Sidebar */}
         <div className="dark-panel p-6 space-y-4 h-[550px] flex flex-col">
-          <h3 className="text-xs font-semibold text-slate-300 font-mono uppercase tracking-wider shrink-0">Report Archive Vault</h3>
+          <h3 className="text-xs font-semibold text-slate-300 font-mono uppercase tracking-wider shrink-0">
+            Report Archive Vault
+          </h3>
           
           <div className="flex-1 overflow-y-auto space-y-2 pr-2 text-xs">
             {loading ? (
